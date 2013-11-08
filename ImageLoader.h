@@ -104,7 +104,9 @@ public:
 		return retImage;
 	}
 };
+
 }
+
 #endif /* IMAGELOADER_H_ */
 
 

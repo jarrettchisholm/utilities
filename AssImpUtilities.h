@@ -15,6 +15,7 @@
 #include <glm/glm.hpp>
 
 namespace utilities {
+
 class AssImpUtilities {
 public:
 	AssImpUtilities()
@@ -40,6 +41,7 @@ public:
 		f[3] = d;
 	}
 };
+
 }
 #endif /* ASSIMPUTILITIES_H_ */
 
