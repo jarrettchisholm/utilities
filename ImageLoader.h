@@ -18,12 +18,14 @@ namespace utilities {
 
 enum Format
 {
-	FORMAT_RGB = 0,
+	FORMAT_UNKNOWN = -1,
+	FORMAT_RGB,
 	FORMAT_RGBA
 };
 
-struct Image {
-	char* data;
+struct Image
+{
+	std::vector<char> data;
 	int width;
 	int height;
 	Format format;
@@ -65,17 +67,20 @@ public:
 		LOG_DEBUG( msg.str() );
 
 		GLubyte* imageBytes;
+		int imageBytesLength = 0;
 		if ( hasAlpha )
-			imageBytes = new GLubyte[4 * w * h];
+			imageBytesLength = 4 * w * h;
 		else
-			imageBytes = new GLubyte[3 * w * h];
+			imageBytesLength = 3 * w * h;
+		
+		imageBytes = new GLubyte[imageBytesLength];
 
 		char* pixels = (char*) FreeImage_GetBits(imageBitmap);
 
 		std::unique_ptr<Image> retImage = std::unique_ptr<Image>();
 		
 		// FreeImage loads in BGR format, so you need to swap some bytes (Or use GL_BGR)
-		if ( pixels != NULL )
+		if ( pixels != nullptr )
 		{
 			int pixelSize = 3;
 			if ( hasAlpha )
@@ -92,7 +97,10 @@ public:
 			}
 
 			retImage = std::unique_ptr<Image>(new Image());
-			retImage->data = pixels;
+			
+			// Transfer raw data into a vector
+			retImage->data = std::vector<char>(pixels, pixels+imageBytesLength);
+			
 			retImage->width = w;
 			retImage->height = h;
 			if (hasAlpha)
@@ -100,6 +108,8 @@ public:
 			else
 				retImage->format = FORMAT_RGB;
 		}
+		
+		FreeImage_Unload(imageBitmap);
 
 		return retImage;
 	}
