@@ -31,6 +31,29 @@ struct Image
 	Format format;
 };
 
+/**
+ * Will return the OpenGL compatible format of the given image Format 'format'.
+ * 
+ * If no known compatible OpenGL format is found, FORMAT_UNKNOWN is returned.
+ * 
+ * @param format
+ * 
+ * @return The OpenGL compatible format of the given image Format 'format', or FORMAT_UNKNOWN if no known compatible OpenGL format is found.
+ */
+inline GLint getOpenGlImageFormat( Format format )
+{
+	switch (format)
+	{
+		case Format::FORMAT_RGB:
+			return GL_RGB;
+		
+		case Format::FORMAT_RGBA:
+			return GL_RGBA;
+	}
+	
+	return (GLint)FORMAT_UNKNOWN;
+}
+
 class ImageLoader {
 public:
 	ImageLoader()
