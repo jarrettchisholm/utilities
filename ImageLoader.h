@@ -85,41 +85,32 @@ public:
 
 		int w = FreeImage_GetWidth(imageBitmap);
 		int h = FreeImage_GetHeight(imageBitmap);
+		
 		std::stringstream msg;
 		msg << "The size of the image '" << filename << "' is: " << w << "*" << h;
 		LOG_DEBUG( msg.str() );
 
-		GLubyte* imageBytes;
-		int imageBytesLength = 0;
-		if ( hasAlpha )
-			imageBytesLength = 4 * w * h;
-		else
-			imageBytesLength = 3 * w * h;
-		
-		imageBytes = new GLubyte[imageBytesLength];
-
 		char* pixels = (char*) FreeImage_GetBits(imageBitmap);
 
-		std::unique_ptr<Image> retImage = std::unique_ptr<Image>();
+		auto retImage = std::unique_ptr<Image>();
 		
-		// FreeImage loads in BGR format, so you need to swap some bytes (Or use GL_BGR)
 		if ( pixels != nullptr )
 		{
 			int pixelSize = 3;
 			if ( hasAlpha )
 				pixelSize = 4;
 
+			// FreeImage loads in BGR format, so you need to swap some bytes (Or use GL_BGR)
 			for ( int j = 0; j < w * h; j++ )
 			{
-				imageBytes[j * pixelSize + 0] = pixels[j * pixelSize + 2];
-				imageBytes[j * pixelSize + 1] = pixels[j * pixelSize + 1];
-				imageBytes[j * pixelSize + 2] = pixels[j * pixelSize + 0];
-				if ( hasAlpha )
-					imageBytes[j * pixelSize + 3] = pixels[j * pixelSize + 3];
-				//cout<<j<<": "<<imageBytes[j*4+0]<<"**"<<imageBytes[j*4+1]<<"**"<<imageBytes[j*4+2]<<"**"<<imageBytes[j*4+3]<<endl;
+				char swap = pixels[j * pixelSize + 2];
+				pixels[j * pixelSize + 2] = pixels[j * pixelSize + 0];
+				pixels[j * pixelSize + 0] = swap;
 			}
 
 			retImage = std::unique_ptr<Image>(new Image());
+			
+			int imageBytesLength = pixelSize * w * h;
 			
 			// Transfer raw data into a vector
 			retImage->data = std::vector<char>(pixels, pixels+imageBytesLength);
