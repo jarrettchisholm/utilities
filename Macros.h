@@ -21,6 +21,16 @@
 		return MemberName; \
 	};
 
+#define SET_REF(Type, MemberName, FaceName) \
+	void set##FaceName(Type& value) { \
+		MemberName = value; \
+	};
+
+#define GET_REF(Type, MemberName, FaceName) \
+	Type& get##FaceName() { \
+		return MemberName; \
+	};
+
 #define GETSET(Type, MemberName, FaceName) \
 	Type get##FaceName() const { \
 		return MemberName; \
@@ -36,6 +46,15 @@
 	}; \
 	\
 	void set##FaceName(const Type& value) { \
+		MemberName = value; \
+	};
+
+#define GETSET_REF(Type, MemberName, FaceName) \
+	Type& get##FaceName() const { \
+		return MemberName; \
+	}; \
+	\
+	void set##FaceName(Type& value) { \
 		MemberName = value; \
 	};
 
