@@ -25,6 +25,22 @@ enum Format
 
 struct Image
 {
+	Image()
+	{
+		data = std::vector<char>();
+		width = 0;
+		height = 0;
+		format = Format::FORMAT_UNKNOWN;
+	}
+	
+	Image(const Image& image)
+	{
+		data = image.data;
+		width = image.width;
+		height = image.height;
+		format = image.format;
+	}
+	
 	std::vector<char> data;
 	int width;
 	int height;
