@@ -1,6 +1,7 @@
 #ifndef GLMUTILITIES_H_
 #define GLMUTILITIES_H_
 
+#define GLM_FORCE_RADIANS
 #include <glm/glm.hpp>
 
 namespace utilities {
