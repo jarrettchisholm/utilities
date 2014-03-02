@@ -1,16 +1,10 @@
-/*
- * StringUtilities.h
- *
- *  Created on: 2011-05-01
- *      Author: jarrett
- */
-
 #ifndef STRINGUTILITIES_H_
 #define STRINGUTILITIES_H_
 
 #include <string>
 
-namespace utilities {
+namespace utilities
+{
 
 std::string toString(const std::wstring ws)
 {
@@ -23,17 +17,5 @@ std::wstring toWstring(const std::string s)
 }
 
 }
+
 #endif /* STRINGUTILITIES_H_ */
-
-
-
-
-
-
-
-
-
-
-
-
-

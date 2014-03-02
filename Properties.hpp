@@ -1,9 +1,3 @@
-/*
- * Properties.h
- *
- *  Created on: 2013-05-06
- *      Author: jarrett
- */
 #ifndef PROPERTIES_H_
 #define PROPERTIES_H_
 
@@ -16,9 +10,11 @@
 
 namespace pod = boost::program_options::detail;
 
-namespace utilities {
+namespace utilities
+{
 	
-class Properties {
+class Properties
+{
 public:
 	Properties(std::string filename);
 	virtual ~Properties();
@@ -40,4 +36,5 @@ private:
 };
 
 }
+
 #endif /* PROPERTIES_H_ */

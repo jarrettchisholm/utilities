@@ -1,16 +1,10 @@
-/*
- * BoostAnyUtilities.h
- *
- *  Created on: 2011-05-01
- *      Author: jarrett
- */
-
 #ifndef BOOSTANYUTILITIES_H_
 #define BOOSTANYUTILITIES_H_
 
 #include <boost/any.hpp>
 
-namespace utilities {
+namespace utilities
+{
 
 bool isEmpty(const boost::any& operand)
 {
@@ -69,15 +63,3 @@ bool isWstring(const boost::any& operand)
 
 }
 #endif /* BOOSTANYUTILITIES_H_ */
-
-
-
-
-
-
-
-
-
-
-
-

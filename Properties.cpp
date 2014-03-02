@@ -1,10 +1,3 @@
-/*
- * Properties.cpp
- *
- *  Created on: 2013-05-06
- *	  Author: jarrett
- */
-
 #include <iostream>
 #include <string>
 #include <set>
@@ -16,9 +9,10 @@
 #include <algorithm>
 #include <cctype>
 
-#include "Properties.h"
+#include "Properties.hpp"
 
-namespace utilities {
+namespace utilities
+{
 	
 Properties::Properties(std::string filename) : filename_(filename)
 {

@@ -1,10 +1,3 @@
-/*
- * ImageLoader.h
- *
- *  Created on: 2011-05-01
- *      Author: jarrett
- */
-
 #ifndef IMAGELOADER_H_
 #define IMAGELOADER_H_
 
@@ -12,9 +5,10 @@
 
 #include "FreeImage.h"
 
-#include "../../common/logger/Logger.h"
+#include "../../common/logger/Logger.hpp"
 
-namespace utilities {
+namespace utilities
+{
 
 enum Format
 {
@@ -70,19 +64,21 @@ inline GLint getOpenGlImageFormat( Format format )
 	return (GLint)FORMAT_UNKNOWN;
 }
 
-class ImageLoader {
+class ImageLoader
+{
 public:
 	ImageLoader()
 	{
-	}
+	};
+	
 	virtual ~ImageLoader()
 	{
-	}
+	};
 
 	std::unique_ptr<Image> loadImageData(const std::string filename, bool hasAlpha = true)
 	{
 		return loadImageData(filename.c_str());
-	}
+	};
 
 	std::unique_ptr<Image> loadImageData(const char* filename, bool hasAlpha = true)
 	{
@@ -142,7 +138,7 @@ public:
 		FreeImage_Unload(imageBitmap);
 
 		return retImage;
-	}
+	};
 };
 
 }
