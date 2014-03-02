@@ -5,6 +5,8 @@
 
 #include "FreeImage.h"
 
+#include <GL/glew.h>
+
 #include "../../common/logger/Logger.hpp"
 
 namespace utilities
