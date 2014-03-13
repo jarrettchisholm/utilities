@@ -61,6 +61,9 @@ inline GLint getOpenGlImageFormat( Format format )
 		
 		case Format::FORMAT_RGBA:
 			return GL_RGBA;
+
+		case Format::FORMAT_UNKNOWN:
+			return (GLint)FORMAT_UNKNOWN;
 	}
 	
 	return (GLint)FORMAT_UNKNOWN;
