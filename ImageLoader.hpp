@@ -9,6 +9,9 @@
 
 #include "../../common/logger/Logger.hpp"
 
+#include "serialize/Serialization.hpp"
+#include "serialize/std/Vector.hpp"
+
 namespace utilities
 {
 
@@ -148,16 +151,24 @@ public:
 
 }
 
+BOOST_SERIALIZATION_SPLIT_FREE(utilities::Image)
+
+namespace boost
+{
+namespace serialization
+{
+
+template<class Archive> void save(Archive& ar, const utilities::Image& img, unsigned int version)
+{
+	ar & img.data & img.width & img.height & img.format;
+}
+
+template<class Archive> void load(Archive& ar, utilities::Image& img, unsigned int version)
+{
+	ar & img.data & img.width & img.height & img.format;
+}
+
+}
+}
+
 #endif /* IMAGELOADER_H_ */
-
-
-
-
-
-
-
-
-
-
-
-
