@@ -4,6 +4,7 @@
 #include <sstream>
 #include <exception>
 #include <fstream>
+#include <utility>
 
 #include <iomanip>
 #include <algorithm>
@@ -13,7 +14,7 @@
 
 namespace utilities
 {
-	
+
 Properties::Properties(std::string filename) : filename_(filename)
 {
 	initialize();
@@ -29,7 +30,7 @@ void Properties::initialize()
 	if(!config)
 	{
 		// TODO: proper error handling
-		std::cerr<<"error"<<std::endl;
+		std::cerr << "error" << std::endl;
 		return;
 	}
 
@@ -41,14 +42,14 @@ void Properties::initialize()
 	{	  
 		for (pod::config_file_iterator i(config, options), e ; i != e; ++i)
 		{
-			std::cout << i->string_key <<" "<<i->value[0] << std::endl;
+			//std::cout << i->string_key << " " << i->value[0] << std::endl;
 			parameters_[i->string_key] = i->value[0];
 		}
-		std::cout << parameters_["StatLogServer.Path"] << std::endl;
+		//std::cout << parameters_["StatLogServer.Path"] << std::endl;
 	}
 	catch(std::exception& e)	
 	{
-		std::cerr<<"Exception: "<<e.what()<<std::endl;
+		std::cerr << "Exception: " << e.what() << std::endl;
 	}
 }
 
@@ -56,39 +57,71 @@ bool Properties::toBool(std::string str)
 {
     std::transform(str.begin(), str.end(), str.begin(), ::tolower);
     std::istringstream is(str);
+    
     bool b;
     is >> std::boolalpha >> b;
     return b;
 }
 
-std::string Properties::getStringValue(std::string name)
+std::string Properties::getStringValue(const std::string& name, std::string defaultValue)
 {
-	return parameters_[name];
+	auto it = parameters_.find(name);
+	
+	if (it != parameters_.end())
+		return it->second;
+	
+	return std::move(defaultValue);
 }
 
-int Properties::getIntValue(std::string name)
+int Properties::getIntValue(const std::string& name, int defaultValue)
 {
-	return std::stoi( parameters_[name] );
+	auto it = parameters_.find(name);
+	
+	if (it != parameters_.end())
+		return std::stoi( it->second );
+	
+	return defaultValue;
+	
 }
 
-long Properties::getLongValue(std::string name)
+long Properties::getLongValue(const std::string& name, long defaultValue)
 {
-	return std::stol( parameters_[name] );
+	auto it = parameters_.find(name);
+	
+	if (it != parameters_.end())
+		return std::stol( it->second );
+	
+	return defaultValue;
 }
 
-float Properties::getFloatValue(std::string name)
+float Properties::getFloatValue(const std::string& name, float defaultValue)
 {
-	return std::stof( parameters_[name] );
+	auto it = parameters_.find(name);
+	
+	if (it != parameters_.end())
+		return std::stof( it->second );
+	
+	return defaultValue;
 }
 
-double Properties::getDoubleValue(std::string name)
+double Properties::getDoubleValue(const std::string& name, double defaultValue)
 {
-	return std::stod( parameters_[name] );
+	auto it = parameters_.find(name);
+	
+	if (it != parameters_.end())
+		return std::stod( it->second );
+	
+	return defaultValue;
 }
 
-bool Properties::getBoolValue(std::string name)
+bool Properties::getBoolValue(const std::string& name, bool defaultValue)
 {
-	return toBool( parameters_[name] );
+	auto it = parameters_.find(name);
+	
+	if (it != parameters_.end())
+		return toBool( it->second );
+	
+	return defaultValue;
 }
 
 }

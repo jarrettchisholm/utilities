@@ -19,12 +19,12 @@ public:
 	Properties(std::string filename);
 	virtual ~Properties();
 	
-	std::string getStringValue(std::string name);
-	int getIntValue(std::string name);
-	long getLongValue(std::string name);
-	float getFloatValue(std::string name);
-	double getDoubleValue(std::string name);
-	bool getBoolValue(std::string name);
+	std::string getStringValue(const std::string& name, std::string defaultValue = std::string(""));
+	int getIntValue(const std::string& name, int defaultValue = 0);
+	long getLongValue(const std::string& name, long defaultValue = 0L);
+	float getFloatValue(const std::string& name, float defaultValue = 0.0f);
+	double getDoubleValue(const std::string& name, double defaultValue = 0.0);
+	bool getBoolValue(const std::string& name, bool defaultValue = false);
 
 private:
 	std::string filename_;
