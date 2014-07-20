@@ -74,4 +74,19 @@
 	}
 */
 
+
+// Debug Macros
+#define FILE_AND_LINE_NUMBER std::string(__FILE__) + " (" + std::to_string(__LINE__) + ")"
+
+#define OPENGL_CHECK_ERRORS(openGlDevice) \
+{ \
+	glr::glw::GlError err = openGlDevice->getGlError(); \
+	if (err.type != GL_NONE) \
+	{ \
+		std::string msg = FILE_AND_LINE_NUMBER + ": Error occured during OpenGL operation: " + err.name; \
+		LOG_ERROR( msg ); \
+		throw glr::exception::GlException( msg ); \
+	} \
+}
+
 #endif /* MACROS_H_ */
